@@ -1,0 +1,958 @@
+:root {
+  --mechanic-text: #333;
+  --mechanic-background: transparent;
+  --mechanic-dust-gray: #f3f1f2;
+  --mechanic-gray: #aaa;
+  --mechanic-disabled: #545454;
+  --mechanic-black: #231f20;
+  --mechanic-blue: #002ebb;
+  --mechanic-light-blue: #f4f7fe;
+  --mechanic-red: #e94225;
+  --mechanic-light-red: #fdd7d1;
+  --mechanic-green: #21c30f;
+  --mechanic-input-font-size: 1em;
+  --mechanic-label-font-size: 0.75em;
+  --mechanic-input-font: "Object Sans", Helvetica, sans-serif;
+  --mechanic-error: #f04b17;
+  --mechanic-input-height: 2.5em;
+  --mechanic-input-height-half: 1.25em;
+  --mechanic-input-height-quart: 0.75em;
+  --mechanic-input-height-eighth: 0.375em;
+}
+
+.common-module__root {
+  position: relative;
+  box-sizing: border-box;
+  font-family: inherit;
+}
+
+.common-module__root *,
+  .common-module__root *:before,
+  .common-module__root *:after {
+    box-sizing: inherit;
+  }
+
+.common-module__disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+
+.common-module__disabled:focus {
+    border: none !important;
+  }
+
+.common-module__disabled:active {
+    transform: none !important;
+  }
+
+/* prevents buttons inside inputs to be double-dimmed */
+
+.common-module__disabled .common-module__disabled {
+    opacity: 1;
+  }
+
+.common-module__label {
+  display: block;
+  margin-bottom: 0.5em;
+  margin-left: 0.25em;
+  font-size: var(--mechanic-label-font-size);
+  font-family: inherit;
+  width: 100%;
+}
+
+.common-module__input-wrapper {
+  width: 100%;
+  position: relative;
+}
+
+.common-module__input,
+.common-module__button {
+  position: relative;
+  z-index: 9;
+  margin: 0;
+  border: 1px solid currentColor;
+  color: currentColor;
+  border-radius: var(--mechanic-input-height-half);
+  display: flex;
+  align-items: center;
+  height: var(--mechanic-input-height);
+  line-height: 1;
+  background-color: var(--mechanic-background);
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  width: 100%;
+
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.common-module__input {
+  padding: 0 var(--mechanic-input-height) 0 var(--mechanic-input-height-quart);
+}
+
+.common-module__button {
+  justify-content: center;
+  padding: 0 var(--mechanic-input-height-quart);
+  transition: transform 0.1s ease;
+}
+
+.common-module__root:not(.common-module__disabled) .common-module__button:hover,
+.common-module__button:not(.common-module__disabled):not([disabled]):hover {
+  /* transform: translateY(-1px); */
+  cursor: pointer;
+}
+
+.common-module__button:active {
+  transform: translateY(1px);
+}
+
+.common-module__input::-moz-placeholder {
+  color: currentColor;
+  opacity: 0.6;
+}
+
+.common-module__input::placeholder {
+  color: currentColor;
+  opacity: 0.6;
+}
+
+.common-module__focus .common-module__input {
+  outline: none;
+  border: 2px solid currentColor;
+  padding-left: calc(var(--mechanic-input-height-quart) - 1px);
+  padding-right: calc(var(--mechanic-input-height) - 1px);
+}
+
+.common-module__focus .common-module__button,
+.common-module__button.common-module__focus {
+  outline: none;
+  border: 2px solid currentColor;
+  padding-left: calc(var(--mechanic-input-height-quart) - 1px);
+  padding-right: calc(var(--mechanic-input-height-quart) - 1px);
+}
+
+.common-module__focus.common-module__disabled .common-module__button,
+.common-module__button.common-module__focus.common-module__disabled {
+  border: 1px solid currentColor;
+}
+
+.common-module__suffix {
+  pointer-events: none;
+  position: absolute;
+  z-index: 10;
+  right: 2px;
+  top: 2px;
+  border-radius: var(--mechanic-input-height-half);
+  text-align: right;
+  background: var(--mechanic-background);
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  height: calc(var(--mechanic-input-height) - 4px);
+  padding: 0 var(--mechanic-input-height-quart);
+}
+
+.common-module__background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--mechanic-input-height);
+  z-index: 8;
+  background-color: white;
+  border-radius: var(--mechanic-input-height-half);
+}
+
+.common-module__invalid .common-module__background:after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  opacity: 0.15;
+  border-radius: var(--mechanic-input-height-half);
+  background-color: currentColor;
+  z-index: 9;
+}
+.common-module__error {
+  padding: 0.2em 0.25em;
+  font-size: var(--mechanic-label-font-size);
+}
+
+.Button-module__root {
+  font-family: inherit;
+  font-size: inherit;
+}
+
+.Button-module__root:not([disabled]) {
+    cursor: pointer;
+  }
+
+.Button-module__root:active:not([disabled]) {
+    transform: translateY(1px);
+  }
+
+.Button-module__root.Button-module__primary {
+  background-color: currentColor;
+}
+
+.Button-module__root.Button-module__primary span {
+    color: white;
+  }
+
+.Toggle-module__status {
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 1em;
+  width: var(--mechanic-input-height-quart);
+  height: var(--mechanic-input-height-quart);
+  border-radius: var(--mechanic-input-height-eighth);
+  border: 1px solid currentColor;
+}
+
+.Toggle-module__status.Toggle-module__on {
+    background: currentColor;
+  }
+
+.Toggle-module__label {
+}
+
+.Toggle-module__focus .Toggle-module__status {
+  margin-left: -1px;
+}
+
+.BooleanInput-module__root {
+}
+
+.ColorInput-module__root {
+}
+.ColorInput-module__root .ColorInput-module__button {
+  justify-content: flex-start;
+}
+.ColorInput-module__swatch {
+  display: inline-block;
+  vertical-align: text-top;
+  margin-right: var(--mechanic-input-height-quart);
+  border-radius: var(--mechanic-input-height-quart);
+  width: var(--mechanic-input-height-half);
+  height: var(--mechanic-input-height-half);
+}
+
+.ColorInput-module__value {
+}
+
+.ColorInput-module__picking .ColorInput-module__button {
+  border-radius: var(--mechanic-input-height-half)
+    var(--mechanic-input-height-half) 0 0;
+}
+
+.ColorInput-module__popover {
+  position: absolute;
+  z-index: 20;
+  top: calc(var(--mechanic-input-height) - 2px);
+  left: 0;
+
+  padding-bottom: 30px;
+  width: 100%;
+}
+
+.ColorInput-module__popover > .ColorInput-module__chrome-picker {
+    box-shadow: none !important;
+    border-top: none !important;
+    border-right: 1px solid currentColor !important;
+    border-left: 1px solid currentColor !important;
+    border-bottom: 1px solid currentColor !important;
+    border-radius: 0 0 var(--mechanic-input-height-half)
+      var(--mechanic-input-height-half) !important;
+    box-sizing: border-box !important;
+    width: 100% !important;
+  }
+
+.ColorInput-module__popover > .ColorInput-module__chrome-picker {
+
+    /* border-top: none !important; */
+    padding: 0.5em;
+    overflow: hidden;
+  }
+
+.ColorInput-module__focus .ColorInput-module__popover .ColorInput-module__chrome-picker {
+  border-right: 2px solid currentColor !important;
+  border-left: 2px solid currentColor !important;
+  border-bottom: 2px solid currentColor !important;
+}
+
+.ColorInput-module__focus .ColorInput-module__popover .ColorInput-module__chrome-picker {
+  padding: 0.5em calc(0.5em - 1px) calc(0.5em - 1px);
+}
+
+
+
+.NumberInput-module__number-input {
+  -moz-appearance: textfield;
+}
+
+.NumberInput-module__number-input::-webkit-outer-spin-button,
+  .NumberInput-module__number-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+.NumberInput-module__range-wrapper {
+  position: relative;
+  display: flex;
+  margin: 0;
+  box-sizing: border-box;
+  align-items: center;
+  height: var(--mechanic-input-height);
+  padding: 0 var(--mechanic-input-height-eighth) 0
+    var(--mechanic-input-height-quart);
+  background-color: var(--mechanic-background);
+  border: 2px solid transparent;
+  color: currentColor;
+  border-radius: var(--mechanic-input-height-half);
+}
+
+.NumberInput-module__range-wrapper .NumberInput-module__background {
+    top: -2px;
+  }
+
+.NumberInput-module__range-number-input {
+  flex: 0 0 60px;
+  z-index: 10;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  border: none;
+  background: none;
+  font-family: inherit;
+  color: inherit;
+  font-size: inherit;
+  outline: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  -moz-appearance: textfield;
+}
+
+.NumberInput-module__range-number-input::-webkit-outer-spin-button,
+  .NumberInput-module__range-number-input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+/* https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/ */
+.NumberInput-module__range-input {
+  position: relative;
+  z-index: 9;
+  flex: 1 1 auto;
+  width: 100%;
+  min-width: 0;
+  color: inherit;
+  background: transparent; /* Otherwise white in Chrome */
+  -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+  /* Special styling for WebKit/Blink */
+}
+.NumberInput-module__range-input::-webkit-slider-thumb {
+    margin-top: -0.65em; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+    border: none;
+    background-color: currentColor;
+    border-radius: var(--mechanic-input-height-half);
+    height: var(--mechanic-input-height-half);
+    width: var(--mechanic-input-height-half);
+    cursor: pointer;
+    -webkit-appearance: none;
+  }
+.NumberInput-module__range-input::-ms-track {
+    /* Hides the slider so custom styles can be added */
+    border-color: transparent;
+    width: 100%;
+    background: transparent;
+    cursor: pointer;
+    color: transparent;
+  }
+/* All the same stuff for Firefox */
+.NumberInput-module__range-input::-moz-range-thumb {
+    border: none;
+    background-color: currentColor;
+    border-radius: var(--mechanic-input-height-half);
+    height: var(--mechanic-input-height-half);
+    width: var(--mechanic-input-height-half);
+    cursor: pointer;
+  }
+/* All the same stuff for IE */
+.NumberInput-module__range-input::-ms-thumb {
+    border: none;
+    background-color: currentColor;
+    border-radius: var(--mechanic-input-height-half);
+    height: var(--mechanic-input-height-half);
+    width: var(--mechanic-input-height-half);
+  }
+.NumberInput-module__range-input::-webkit-slider-runnable-track {
+    border: 1px solid currentColor;
+    border-radius: 2px;
+    width: 100%;
+    height: 0;
+    background-color: currentColor;
+    cursor: pointer;
+  }
+.NumberInput-module__range-input:focus::-webkit-slider-runnable-track {
+    background: currentColor;
+  }
+.NumberInput-module__range-input::-moz-range-track {
+    border: 1px solid currentColor;
+    border-radius: 2px;
+    width: 100%;
+    height: 0;
+    background-color: currentColor;
+    cursor: pointer;
+  }
+.NumberInput-module__range-input::-ms-track {
+    border: 1px solid currentColor;
+    border-radius: 2px;
+    width: 100%;
+    height: 0;
+    background-color: currentColor;
+    cursor: pointer;
+    color: transparent;
+  }
+.NumberInput-module__range-input::-ms-fill-lower {
+    border: 1px solid currentColor;
+    border-radius: 2.6px;
+    background: currentColor;
+  }
+.NumberInput-module__range-input:focus::-ms-fill-lower {
+  }
+.NumberInput-module__range-input::-ms-fill-upper {
+    border: 1px solid currentColor;
+    border-radius: 5px;
+
+    background: currentColor;
+  }
+.NumberInput-module__range-input:focus::-ms-fill-upper {
+    background: currentColor;
+  }
+
+.NumberInput-module__disabled .NumberInput-module__range-input::-webkit-slider-thumb {
+      cursor: default;
+    }
+
+.NumberInput-module__disabled .NumberInput-module__range-input::-ms-track {
+      cursor: default;
+    }
+
+.NumberInput-module__disabled .NumberInput-module__range-input::-moz-range-thumb {
+      cursor: default;
+    }
+
+.NumberInput-module__disabled .NumberInput-module__range-input::-ms-thumb {
+      cursor: default;
+    }
+
+.NumberInput-module__disabled .NumberInput-module__range-input::-webkit-slider-runnable-track {
+      cursor: default;
+    }
+
+.NumberInput-module__disabled .NumberInput-module__range-input:focus::-webkit-slider-runnable-track {
+      cursor: default;
+    }
+
+.NumberInput-module__disabled .NumberInput-module__range-input::-moz-range-track {
+      cursor: default;
+    }
+
+.NumberInput-module__disabled .NumberInput-module__range-input::-ms-track {
+      cursor: default;
+    }
+
+.NumberInput-module__focus .NumberInput-module__range-wrapper {
+  border-color: currentColor;
+}
+
+.NumberInput-module__focus .NumberInput-module__range-input {
+  outline: none;
+}
+
+.Select-module__root {
+}
+.Select-module__select {
+  cursor: pointer;
+}
+
+.OptionInput-module__root {
+}
+
+.OptionInput-module__root option {
+  color: var(--mechanic-black);
+}
+
+.OptionInput-module__root option:disabled {
+  color: var(--mechanic-disabled);
+}
+
+.ImageInput-module__container-wrapper {
+  position: relative;
+}
+
+.ImageInput-module__container {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid currentColor;
+  color: currentColor;
+  border-radius: var(--mechanic-input-height-half);
+  padding: 0 var(--mechanic-input-height) 0 var(--mechanic-input-height-quart);
+  display: flex;
+  align-items: center;
+  min-height: var(--mechanic-input-height);
+  line-height: 1;
+  background-color: var(--mechanic-background);
+  font-size: inherit;
+  font-family: inherit;
+  font-weight: inherit;
+  width: 100%;
+}
+
+.ImageInput-module__loadedImages {
+  z-index: 21;
+  pointer-events: none;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  flex-grow: 1;
+}
+
+.ImageInput-module__imageItem {
+  pointer-events: initial;
+  margin: 0.15em 0.15em 0 0;
+}
+
+.ImageInput-module__thumbnail {
+  max-height: var(--mechanic-input-height-half);
+  max-width: 150px;
+  border-radius: 3px;
+}
+
+.ImageInput-module__preview {
+  position: absolute;
+  z-index: 100;
+  left: var(--mechanic-input-height-quart);
+  right: var(--mechanic-input-height-quart);
+  margin-top: var(--mechanic-input-height-quart);
+  width: calc(100% - var(--mechanic-input-height-half));
+  max-height: 200px;
+  -o-object-fit: contain;
+     object-fit: contain;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+}
+
+.ImageInput-module__input {
+  opacity: 0;
+  width: 0.1px;
+  height: 0.1px;
+  position: absolute;
+  outline: none;
+}
+
+.ImageInput-module__browseButton {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: 20;
+  padding: 0 var(--mechanic-input-height-half) 0 0;
+  height: 100%;
+  width: 100%;
+  border: none;
+  outline: none;
+  border-radius: var(--mechanic-input-height-half);
+  background: none;
+  color: inherit;
+  vertical-align: middle;
+  text-align: right;
+  cursor: pointer;
+}
+
+.ImageInput-module__focus .ImageInput-module__container {
+  outline: none;
+  border: 2px solid currentColor;
+  padding-left: calc(var(--mechanic-input-height-quart) - 1px);
+}
+.ImageInput-module__focus .ImageInput-module__browseButton {
+  padding-right: calc(var(--mechanic-input-height-half) - 1px);
+}
+
+.ImageInput-module__focus .ImageInput-module__container .ImageInput-module__preview {
+  left: calc(var(--mechanic-input-height-quart) - 1px);
+  right: calc(var(--mechanic-input-height-quart) - 1px);
+}
+
+.ImageInput-module__invalid {
+}
+
+.ImageInput-module__disabled {
+  opacity: 0.4;
+}
+
+.ImageInput-module__disabled .ImageInput-module__browseButton {
+  cursor: default;
+}
+
+.ImageInput-module__container:not([disabled]):hover {
+}
+
+.ImageInput-module__container:active {
+  transform: translateY(1px);
+}
+
+.ImageInput-module__plus {
+  margin-top: 0.2em;
+}
+
+.MechanicInput-module__root {
+  font-size: var(--mechanic-input-font-size);
+}
+
+.SideBar-module__root {
+  flex: 0 0 300px;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--mechanic-dust-gray);
+  height: 100%;
+  padding-left: 30px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+          user-select: none;
+}
+
+.SideBar-module__inputs {
+  flex-grow: 1;
+  overflow: auto;
+  padding-right: 30px;
+}
+
+.SideBar-module__inputs > .SideBar-module__input:first-child {
+    padding-top: 10px;
+  }
+
+.SideBar-module__inputs > .SideBar-module__input:last-child {
+    padding-bottom: 5px;
+  }
+
+.SideBar-module__input {
+  margin-bottom: 1em;
+}
+
+.SideBar-module__section {
+  padding-right: 30px;
+}
+
+.SideBar-module__sep {
+  flex-shrink: 0;
+  height: 1em;
+}
+
+.SideBar-module__row {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.SideBar-module__noWrapRow {
+  flex-wrap: nowrap;
+}
+
+.SideBar-module__withUndo {
+  position: relative;
+}
+
+.SideBar-module__undo,
+.SideBar-module__redo {
+  width: var(--mechanic-input-height);
+  position: absolute;
+  z-index: 10;
+  border: none;
+  height: var(--mechanic-input-height);
+}
+
+.SideBar-module__undo {
+  left: 0;
+
+  border-radius: var(--mechanic-input-height-half) 0 0
+    var(--mechanic-input-height-half);
+}
+
+.SideBar-module__redo {
+  right: 0;
+  border-radius: 0 var(--mechanic-input-height-half)
+    var(--mechanic-input-height-half) 0;
+}
+
+.SideBar-module__grow {
+  flex-grow: 1;
+}
+
+.SideBar-module__edge {
+  position: relative;
+  height: 0;
+  z-index: 100;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+  border-bottom: 1px solid var(--mechanic-dust-gray);
+}
+
+.SideBar-module__edge:before {
+    content: "";
+    height: 10px;
+    position: absolute;
+    width: 100%;
+    height: 10px;
+  }
+
+.SideBar-module__edge.SideBar-module__top:before {
+  background-image: linear-gradient(to top, rgba(255, 255, 255, 0), white);
+  top: 0;
+}
+.SideBar-module__edge.SideBar-module__bottom:before {
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0), white);
+  bottom: 0;
+}
+.SideBar-module__error {
+  padding: 0.2em 0.25em;
+  font-size: 0.75em;
+}
+.SideBar-module__strong {
+  font-weight: bold;
+}
+
+.NotFound-module__root {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+.NotFound-module__root p {
+    margin: 0;
+  }
+
+.Nav-module__root {
+  position: relative;
+  display: flex;
+  margin-top: 8px;
+  font-family: var(--mechanic-input-font);
+
+  flex-direction: column;
+}
+
+.Nav-module__functionName {
+  font-size: 1.6em;
+  line-height: 1.1;
+  font-weight: bolder;
+  margin: 0.15em 1em 0 0;
+}
+
+.Nav-module__selectContainer {
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+}
+
+.Nav-module__functionLabel {
+}
+
+/* Adapted from: https://www.filamentgroup.com/lab/select-css.html */
+.Nav-module__navigation-select {
+  position: absolute;
+  left: 0;
+  top: 0;
+  font-size: 1em;
+  color: transparent;
+  font-weight: bolder;
+  font-family: inherit;
+  border: 1px solid white;
+  /* width: 2em; */
+  width: 100%;
+  padding: 0 2em 0;
+  height: 100%;
+  background: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  transition: border 0.25s ease;
+  border-radius: 4em;
+  border: 1px solid transparent;
+}
+.Nav-module__navigation-select option {
+    color: var(--mechanic-black);
+  }
+
+.Nav-module__navigationSelectSuffix {
+  pointer-events: none;
+  width: 20px;
+  position: absolute;
+  right: 0.75em;
+  top: 0.5em;
+}
+
+.Feedback-module__root {
+  position: fixed;
+  right: 0;
+  bottom: 150px;
+  z-index: 20;
+
+  padding: 0;
+  height: 45px;
+  color: currentColor;
+  border: 1px solid currentColor;
+  border-bottom: none;
+  background-color: #f7f7f7;
+  border-radius: 20px 20px 0 0;
+  font-family: inherit;
+  font-size: var(--mechanic-input-font-size);
+
+  transform-origin: 100% 0;
+  transform: translate(-35px) rotate(270deg);
+  transition: transform 0.25s ease;
+}
+.Feedback-module__root:hover {
+    transform: translate(-45px) rotate(270deg);
+  }
+.Feedback-module__root a {
+    color: inherit;
+    text-decoration: none;
+    font-weight: normal;
+    font-weight: initial;
+    font-family: inherit;
+    display: block;
+    margin-top: -7px;
+    padding: 0em 1em;
+  }
+
+.App-module__base {
+  margin: 0;
+  height: 100vh;
+  padding: 0;
+}
+
+.App-module__root {
+  display: flex;
+  height: 100%;
+}
+
+.App-module__main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+  background-color: #f7f7f7;
+  padding-left: 1em;
+  padding-top: 1em;
+}
+
+.App-module__iframe {
+  flex-grow: 1;
+
+  border: none;
+}
+
+/* Object Sans
+ * This beautiful font was designed by Alex Slobzheninov.
+ * Object Sans is a contemporary type family that puts together the best
+ * qualities of Swiss neo-grotesks and geometric fonts. It’s a multifunctional
+ * workhorse designed to work best in any printed and on-screen contexts.
+ * It is free to use for personal purposes. If you would like to use it
+ * for commercial purposes, you will need to purchase a license.
+ * for more information visit https://pangrampangram.com/products/object-sans
+ * Alex Slobzheninov https://www.behance.net/slobzheninov
+ */
+
+@font-face {
+  font-family: "Object Sans";
+  src: url(/faaad-graficas/853127ec2169f864ca4a.otf) format("opentype");
+}
+
+@font-face {
+  font-family: "Object Sans";
+  src: url(/faaad-graficas/1003e3045605f939f7a8.otf) format("opentype");
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "Object Sans";
+  src: url(/faaad-graficas/d952856a9ba0368ae0e0.otf) format("opentype");
+  font-weight: bold;
+}
+
+@font-face {
+  font-family: "Object Sans";
+  src: url(/faaad-graficas/f72adbc49d60f9dd1a62.otf) format("opentype");
+  font-weight: bold;
+  font-style: italic;
+}
+
+/* IBM Plex
+ * Copyright © 2017 IBM Corp. with Reserved Font Name "Plex"
+ * This Font Software is licensed under the SIL Open Font License, Version 1.1.
+*/
+
+@font-face {
+  font-family: Plex;
+  src: url(/faaad-graficas/6644595b6e0366dcdbb8.otf) format("opentype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Plex;
+  src: url(/faaad-graficas/15f7f974eecd1cd38df3.otf) format("opentype");
+  font-weight: normal;
+  font-style: italic;
+}
+
+@font-face {
+  font-family: Plex;
+  src: url(/faaad-graficas/f085258296ac3b64b271.otf) format("opentype");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: Plex;
+  src: url(/faaad-graficas/d90fb192c8dbafa1d47b.otf) format("opentype");
+  font-weight: bold;
+  font-style: italic;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body,
+html {
+  height: 100%;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Object Sans", Helvetica, Arial, Sans-Serif;
+  font-size: 16px;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  color: var(--mechanic-text);
+}
+
+
+/*# sourceMappingURL=06a1901e73f9ca33d446-app.css.map*/
